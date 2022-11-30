@@ -5,9 +5,6 @@ TARGET = 40253480_detector
 .DEFAULT_GOAL = help
 .PHONY = clean help run test
 
-FILE1 =
-FILE2 =
-
 all: $(TARGET)
 
 $(TARGET): $(TARGET).py
@@ -25,11 +22,11 @@ run: $(TARGET)
 	$(PYTHON) $(TARGET).py
 
 testPlagiarism: $(TARGET)
-	@echo 'Testing plagiarism test cases in ../data/plagiarismXX'
-	@for file in ../data/plagiarism*; do echo 'Testing $$file'; ./$(TARGET) $$file/1.txt $$file/2.txt;done
+	@echo r'Testing plagiarism test cases in ../data/plagiarismXX'
+	@for file in ../data/plagiarism*; do echo 'Testing' $$file; $(PYTHON) $(TARGET).py $$file/1.txt $$file/2.txt;done
 
 testNonPlagiarism: $(TARGET)
 	@echo 'Testing non-plagiarism test cases in ../data/okayXX'
-	@for file in ../data/okay*; do echo 'Testing $$file'; ./$(TARGET) $$file/1.txt $$file/2.txt;done
+	@for file in ../data/okay*; do echo 'Testing' $$file; $(PYTHON) $(TARGET).py $$file/1.txt $$file/2.txt;done
 
 test: testPlagiarism testNonPlagiarism

@@ -1,5 +1,6 @@
 import math
 import string
+import sys
 
 
 class Utilities:
@@ -17,8 +18,9 @@ class Utilities:
         try:
             with open(path) as f:
                 return f.read()
-        except:
-            raise Exception('Something went wrong reading the file at: {path}')
+        except Exception as e:
+            print(f'>>> Something went wrong reading the file -> {e.__class__, e.__str__()}')
+            sys.exit()
 
     @staticmethod
     def text_preprocess(text: str) -> [str]:
@@ -60,12 +62,18 @@ class Utilities:
         return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
 
 
-def detect_plagiarism(path_1: str = '', path_2: str = '') -> bool:
-    path_1 = r'/Users/mercury/Documents/Documents - Mehrdad’s MacBook Pro/CS_Concordia/S1/Algorithm Design Techniques/project/sample_data_and_submission/data/okay02/1.txt'
-    path_2 = r'/Users/mercury/Documents/Documents - Mehrdad’s MacBook Pro/CS_Concordia/S1/Algorithm Design Techniques/project/sample_data_and_submission/data/okay02/2.txt'
-    # path_1 = r'/Users/mercury/Documents/Documents - Mehrdad’s MacBook Pro/CS_Concordia/S1/Algorithm Design Techniques/project/sample_data_and_submission/data/plagiarism08/1.txt'
-    # path_2 = r'/Users/mercury/Documents/Documents - Mehrdad’s MacBook Pro/CS_Concordia/S1/Algorithm Design Techniques/project/sample_data_and_submission/data/plagiarism08/2.txt'
-
+def detect_plagiarism() -> bool:
+    if len(sys.argv) == 1:
+        print('\n>>> NO file path passed as an argument!')
+        path_1 = input('Please provide path to the first file:\n')
+        path_2 = input('Please provide path to the second file:\n')
+    else:
+        try:
+            path_1 = sys.argv[1]
+            path_2 = sys.argv[2]
+        except Exception as e:
+            print(f'Not enough arguments passed!', {e.__class__, e.__str__()})
+            sys.exit()
     file_1 = Utilities.read_file(path_1)
     list_1 = Utilities.text_preprocess(file_1)
     freq_map_1 = Utilities.frequency_map(list_1)
@@ -75,14 +83,8 @@ def detect_plagiarism(path_1: str = '', path_2: str = '') -> bool:
     freq_map_2 = Utilities.frequency_map(list_2)
     freq_map_2 = Utilities.sort_dict_by_value(freq_map_2, True)
     similar = Utilities.vector_similarity(freq_map_1, freq_map_2)
-    print(similar)
     return similar
 
 
 if __name__ == '__main__':
-    # if detect_plagiarism(input('provide path to the first file:\n'),
-    #                      input('provide path to the second file:\n')):
-    #     print(0)
-    # else:
-    #     print(1)
-    detect_plagiarism()
+    print(1) if detect_plagiarism() else print(0)
