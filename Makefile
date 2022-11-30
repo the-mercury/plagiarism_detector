@@ -5,6 +5,9 @@ TARGET = 40253480_detector
 .DEFAULT_GOAL = help
 .PHONY = clean help run test
 
+FILE1 =
+FILE2 =
+
 all: $(TARGET)
 
 $(TARGET): $(TARGET).py
@@ -19,7 +22,7 @@ help:
 	@echo '--------------------------------'
 
 run: $(TARGET)
-	$(PYTHON) $(TARGET).py
+	$(PYTHON) $(TARGET).py $(FILE1) $(FILE2)
 
 testPlagiarism: $(TARGET)
 	@echo r'Testing plagiarism test cases in ../data/plagiarismXX'
