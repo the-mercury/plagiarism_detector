@@ -1,4 +1,4 @@
-PYTHON = python3
+PYTHON = python
 
 TARGET = 40253480_detector
 
