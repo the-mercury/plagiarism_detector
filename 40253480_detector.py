@@ -5,22 +5,22 @@ import sys
 
 class Utilities:
     COMMON = [
+        'a', 'an',
         'i', 'you', 'he', 'she', 'they', 'we',
-        'am', 'is', 'are',
+        'am', 'is', 'are', 'be',
         'my', 'his', 'her', 'their', 'ours',
         'the', 'this', 'that', 'these', 'those', 'it',
         'at', 'on', 'in', 'from', 'to',
-        'of', 'if', 'for'
+        'of', 'if', 'for',
+        'too', 'but', 'not',
+        'or', 'and',
+        'all', 'so'
     ]
 
     @staticmethod
     def read_file(path: str) -> str:
-        try:
-            with open(path) as f:
-                return f.read()
-        except Exception as e:
-            print(f'>>> Something went wrong reading the file -> {e.__class__, e.__str__()}')
-            sys.exit()
+        with open(path) as f:
+            return f.read()
 
     @staticmethod
     def text_preprocess(text: str) -> [str]:
@@ -29,7 +29,7 @@ class Utilities:
         return text.lower().translate(str.maketrans('', '', string.punctuation)).split(sep=' ')
 
     @staticmethod
-    def frequency_map(word_list):
+    def frequency_map(word_list: list) -> dict:
         frequency = {}
         for new_word in word_list:
             if new_word not in Utilities.COMMON:
@@ -40,7 +40,7 @@ class Utilities:
         return frequency
 
     @staticmethod
-    def dot_product(vector_1, vector_2):
+    def dot_product(vector_1: dict, vector_2: dict) -> float:
         product_value = 0.0
         for key in vector_1:
             if key in vector_2:
@@ -48,32 +48,23 @@ class Utilities:
         return product_value
 
     @staticmethod
-    def vector_cos(freq_map_1, freq_map_2):
+    def vector_cos(freq_map_1: dict, freq_map_2: dict) -> float:
         numerator = Utilities.dot_product(freq_map_1, freq_map_2)
         denominator = math.sqrt(Utilities.dot_product(freq_map_1, freq_map_1) * Utilities.dot_product(freq_map_2, freq_map_2))
         return numerator / denominator
 
     @staticmethod
-    def vector_similarity(freq_map_1, freq_map_2, threshold=0.5):
+    def vector_similarity(freq_map_1: dict, freq_map_2: dict, threshold: float = 0.5) -> bool:
         return Utilities.vector_cos(freq_map_1, freq_map_2) > threshold
 
     @staticmethod
-    def sort_dict_by_value(dictionary, reverse=False):
+    def sort_dict_by_value(dictionary, reverse=False) -> dict:
         return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
 
 
 def detect_plagiarism() -> bool:
-    if len(sys.argv) == 1:
-        print('\n>>> NO file path passed as an argument!')
-        path_1 = input('Please provide path to the first file:\n')
-        path_2 = input('Please provide path to the second file:\n')
-    else:
-        try:
-            path_1 = sys.argv[1]
-            path_2 = sys.argv[2]
-        except Exception as e:
-            print(f'Not enough arguments passed!', {e.__class__, e.__str__()})
-            sys.exit()
+    path_1 = sys.argv[1]
+    path_2 = sys.argv[2]
     file_1 = Utilities.read_file(path_1)
     list_1 = Utilities.text_preprocess(file_1)
     freq_map_1 = Utilities.frequency_map(list_1)
@@ -87,4 +78,7 @@ def detect_plagiarism() -> bool:
 
 
 if __name__ == '__main__':
-    print(1) if detect_plagiarism() else print(0)
+    try:
+        print(1) if detect_plagiarism() else print(0)
+    except:
+        print(-1)

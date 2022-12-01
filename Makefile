@@ -17,9 +17,9 @@ clean:
 	rm -rf __pycache__
 
 help:
-	@echo '--------------HELP--------------'
-	@echo 'To run the project type make run'
-	@echo '--------------------------------'
+	@echo '--------------------------HELP-------------------------------'
+	@echo 'To run the project type: make run <file_1_path> <file_2_path>'
+	@echo '-------------------------------------------------------------'
 
 run: $(TARGET)
 	$(PYTHON) $(TARGET).py $(FILE1) $(FILE2)
