@@ -58,7 +58,7 @@ class Utilities:
         return Utilities.vector_cos(freq_map_1, freq_map_2) > threshold
 
     @staticmethod
-    def sort_dict_by_value(dictionary, reverse=False) -> dict:
+    def sort_dict_by_value(dictionary: dict, reverse: bool = False) -> dict:
         return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
 
 
