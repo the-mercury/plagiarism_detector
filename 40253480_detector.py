@@ -58,7 +58,7 @@ class Utilities:
         return Utilities.vector_cos(freq_map_1, freq_map_2) > threshold
 
     @staticmethod
-    def sort_dict_by_value(dictionary: dict, reverse: bool = False) -> dict:
+    def sort_dict_by_value(dictionary: dict, reverse: bool = True) -> dict:
         return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
 
 
@@ -68,11 +68,11 @@ def detect_plagiarism() -> bool:
     file_1 = Utilities.read_file(path_1)
     list_1 = Utilities.text_preprocess(file_1)
     freq_map_1 = Utilities.frequency_map(list_1)
-    freq_map_1 = Utilities.sort_dict_by_value(freq_map_1, True)
+    freq_map_1 = Utilities.sort_dict_by_value(freq_map_1)
     file_2 = Utilities.read_file(path_2)
     list_2 = Utilities.text_preprocess(file_2)
     freq_map_2 = Utilities.frequency_map(list_2)
-    freq_map_2 = Utilities.sort_dict_by_value(freq_map_2, True)
+    freq_map_2 = Utilities.sort_dict_by_value(freq_map_2)
     similar = Utilities.vector_similarity(freq_map_1, freq_map_2)
     return similar
 
