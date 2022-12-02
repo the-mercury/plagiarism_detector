@@ -17,15 +17,15 @@ clean:
 	rm -rf __pycache__
 
 help:
-	@echo '--------------------------HELP-------------------------------'
-	@echo 'To run the project type: make run <file_1_path> <file_2_path>'
-	@echo '-------------------------------------------------------------'
+	@echo '---------------------------------HELP------------------------------------'
+	@echo 'To run the project type: make FILE1=<file_1_path> FILE2=<file_2_path> run'
+	@echo '-------------------------------------------------------------------------'
 
 run: $(TARGET)
 	$(PYTHON) $(TARGET).py $(FILE1) $(FILE2)
 
 testPlagiarism: $(TARGET)
-	@echo r'Testing plagiarism test cases in ../data/plagiarismXX'
+	@echo 'Testing plagiarism test cases in ../data/plagiarismXX'
 	@for file in ../data/plagiarism*; do echo 'Testing' $$file; $(PYTHON) $(TARGET).py $$file/1.txt $$file/2.txt;done
 
 testNonPlagiarism: $(TARGET)
