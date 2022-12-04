@@ -46,13 +46,6 @@ class Utilities:
             mag += ele * ele
         return math.sqrt(mag)
 
-    # @staticmethod
-    # def weighted_vector_magnitude(vector_dict: dict) -> float:
-    #     mag = 0
-    #     for key in vector_dict.keys():
-    #         mag += vector_dict[key] * vector_dict[key] * len(key)
-    #     return math.sqrt(mag)
-
     @staticmethod
     def normalize_vector(vector: list) -> list:
         vector_magnitude = Utilities.vector_magnitude(vector)
@@ -64,17 +57,8 @@ class Utilities:
         vector_2 = Utilities.normalize_vector(list(freq_dict_2.values()))
         dif = Utilities.vector_magnitude([(vector_2[i] - vector_1[i]) for i in range(len(vector_1))])
         plus = Utilities.vector_magnitude([(vector_2[i] + vector_1[i]) for i in range(len(vector_1))])
-        print(dif / plus)
+        # print(dif / plus)
         return dif / plus < threshold
-
-    # @staticmethod
-    # def vector_similarity_3(freq_map_1: dict, freq_map_2: dict, threshold: float = 0.5) -> bool:
-    #     dif_dict = {key: freq_map_1[key] - freq_map_2.get(key, 0) for key in freq_map_1.keys()}
-    #     plus_dict = {key: freq_map_1[key] + freq_map_2.get(key, 0) for key in freq_map_1.keys()}
-    #     dif = Utilities.weighted_vector_magnitude(dif_dict)
-    #     plus = Utilities.weighted_vector_magnitude(plus_dict)
-    #     print(dif / plus)
-    #     return dif / plus < threshold
 
     @staticmethod
     def sort_dict_by_value(dictionary: dict, reverse: bool = True) -> dict:
