@@ -57,12 +57,7 @@ class Utilities:
         vector_2 = Utilities.normalize_vector(list(freq_dict_2.values()))
         dif = Utilities.vector_magnitude([(vector_2[i] - vector_1[i]) for i in range(len(vector_1))])
         plus = Utilities.vector_magnitude([(vector_2[i] + vector_1[i]) for i in range(len(vector_1))])
-        # print(dif / plus)
         return dif / plus < threshold
-
-    @staticmethod
-    def sort_dict_by_value(dictionary: dict, reverse: bool = True) -> dict:
-        return dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse))
 
     @staticmethod
     def word_dict(set_union: set, freq_dict: dict) -> dict:
@@ -76,10 +71,6 @@ class Utilities:
 def detect_plagiarism() -> bool:
     path_1 = sys.argv[1]
     path_2 = sys.argv[2]
-    # path_1 = '../data/plagiarism09/1.txt'
-    # path_2 = '../data/plagiarism09/2.txt'
-    # path_1 = '../data/okay05/1.txt'
-    # path_2 = '../data/okay05/2.txt'
     file_1 = Utilities.read_file(path_1)
     list_1 = Utilities.text_preprocess(file_1)
     freq_dict_1 = Utilities.frequency_mapping(list_1)
