@@ -25,11 +25,11 @@ run: $(TARGET)
 	$(PYTHON) $(TARGET).py $(FILE1) $(FILE2)
 
 testPlagiarism: $(TARGET)
-	@echo 'Testing plagiarism test cases in ../data/plagiarismXX'
+	@echo 'Testing plagiarism test cases in ./data/plagiarismXX'
 	@for file in ./data/plagiarism*; do echo 'Testing' $$file; $(PYTHON) $(TARGET).py $$file/1.txt $$file/2.txt;done
 
 testNonPlagiarism: $(TARGET)
-	@echo 'Testing non-plagiarism test cases in ../data/okayXX'
+	@echo 'Testing non-plagiarism test cases in ./data/okayXX'
 	@for file in ./data/okay*; do echo 'Testing' $$file; $(PYTHON) $(TARGET).py $$file/1.txt $$file/2.txt;done
 
 test: testPlagiarism testNonPlagiarism
